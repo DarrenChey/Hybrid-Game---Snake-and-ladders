@@ -1,0 +1,445 @@
+/* Importing font from Google */
+@import url('https://fonts.googleapis.com/css2?family=Old+Standard+TT&display=swap');
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(45deg, #dec9c9, #0a0a2a); /* Dark space background */
+    font-family: 'Orbitron', sans-serif; /* Futuristic font */
+    background-size: 300% 300%;
+    animation: gradientAnimation 60s ease infinite; /* Space theme gradient movement */
+    color: #FFFFFF;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Animation for smooth gradient transitions (space feel) */
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Container with space background and soft glow effect */
+.container {
+    max-width: 800px;
+    margin: auto;
+    padding: 40px 30px;
+    background-color: rgba(20, 20, 20, 0.85); /* Darker background for better contrast */
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    width: 90%;
+}
+
+/* Login box */
+.login-box {
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+/* Main Heading (h1) */
+h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 3.2em;
+    color: #00ffcc; /* Neon green for space vibe */
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px rgba(0, 255, 204, 0.7), 0 0 20px rgba(0, 255, 204, 0.5); /* Glowing text */
+}
+
+/* Hover effect for h1 */
+h1:hover {
+    transform: scale(1.05);
+    text-shadow: 0 0 15px rgba(0, 255, 204, 1), 0 0 30px rgba(0, 255, 204, 0.8);
+}
+
+/* Subheading (h2) */
+h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.5em;
+    color: #fff; /* White font color */
+    margin-top: 10px;
+    text-shadow: 0 0 8px rgba(0, 255, 204, 0.7); /* Soft glow */
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+/* Hover effect for h2 */
+h2:hover {
+    transform: scale(1.05);
+    text-shadow: 0 0 15px rgba(0, 255, 204, 1);
+}
+
+/* Paragraph styling */
+p {
+    margin: 15px 0;
+    font-size: 18px;
+    line-height: 1.6;
+    color: #e0e0e0;
+    text-align: center;
+}
+
+/* Hover effect for paragraphs */
+p:hover {
+    transform: scale(1.05);
+    text-shadow: 0 0 8px rgba(0, 255, 204, 0.7);
+}
+
+/* Input groups for form fields */
+.input-group {
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+label {
+    color: #ffffff; /* White color for labels */
+    font-weight: bold;
+    margin-bottom: 8px;
+    font-size: 1.1em;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 2px solid #333;
+    background-color: #1a1a2e; /* Dark background for input */
+    color: #e0e0e0; /* Light text color */
+    font-size: 18px;
+    transition: border-color 0.3s ease;
+}
+
+input:focus {
+    outline: none;
+    border-color: #00ffcc; /* Highlight color on focus */
+    background-color: #2a2a3e; /* Slightly lighter background on focus */
+}
+
+/* Button Styling */
+button {
+    display: inline-block;
+    padding: 15px 40px;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #fff;
+    background-color: #00ffcc;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Button hover effect */
+button:hover {
+    background-color: #00e6b8;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 255, 204, 0.8);
+}
+
+/* Button active state */
+button:active {
+    transform: translateY(0);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Button Container */
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+/* Sign-In link */
+a.sign-in-button {
+    color: #00ffcc; /* Neon color for sign-in link */
+    text-decoration: none;
+    font-size: 14px;
+    margin-top: 10px;
+    display: inline-block;
+}
+
+a.sign-in-button:hover {
+    color: #00e6b8;
+}
+
+/* Error Message Styling */
+.error-message {
+    background-color: #ff4444;
+    color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 18px;
+    font-family: 'Orbitron', sans-serif;
+    border: 2px solid #e74c3c;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Retro Loading Container */
+.loading-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    z-index: 9999;
+}
+
+/* Retro Loading Animation */
+.loading {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100px;
+    height: 100px;
+    position: relative;
+}
+
+.dot {
+    width: 20px;
+    height: 20px;
+    background-color: #ff5733;
+    border-radius: 50%;
+    animation: bounce 1.5s infinite ease-in-out;
+}
+
+/* Animation for bouncing dots */
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+.dot:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.dot:nth-child(2) {
+    animation-delay: 0.3s;
+}
+
+.dot:nth-child(3) {
+    animation-delay: 0.6s;
+}
+
+/* Text Blinking Animation */
+.loading-text {
+    position: absolute;
+    bottom: -40px;
+    font-size: 16px;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    animation: blinkText 1s infinite step-start;
+}
+
+@keyframes blinkText {
+    50% {
+        opacity: 0;
+    }
+}
+
+
+
+@media (max-width: 480px) {
+    body {
+        font-size: 0.8em; /* Reduce base font size */
+    }
+    h1 {
+        font-size: 2em;
+    }
+    h2 {
+        font-size: 1.5em;
+    }
+    p {
+        font-size: 16px;
+    }
+    .container {
+        padding: 20px 15px;
+        width: 95%;
+    }
+    .input-group label {
+        font-size: 1em;
+    }
+    input {
+        padding: 10px;
+        font-size: 16px;
+    }
+    button {
+        font-size: 1.2em;
+        padding: 10px 30px;
+    }
+    .loading {
+        width: 80px;
+        height: 80px;
+    }
+    .dot {
+        width: 15px;
+        height: 15px;
+    }
+    .loading-text {
+        font-size: 12px;
+    }
+}
+
+/* Base Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+  
+.modal-content {
+    background: linear-gradient(145deg, rgba(25, 25, 35, 0.95), rgba(40, 40, 55, 0.95));
+    padding: 40px;
+    border-radius: 20px;
+    border: 2px solid #4a90e2;
+    box-shadow: 0 0 30px rgba(74, 144, 226, 0.3),
+                inset 0 0 15px rgba(74, 144, 226, 0.2);
+    position: relative;
+    width: 90%;
+    max-width: 500px;
+    max-height: 80vh;
+    overflow-y: auto;
+    color: #fff;
+    transform-style: preserve-3d;
+    animation: modalGameIn 0.5s ease-out;
+    text-align: center;
+}
+
+.modal-content h3 {
+    color: #4a90e2;
+    margin-bottom: 30px;
+    font-size: 24px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(74, 144, 226, 0.5);
+}
+
+.modal-content p {
+    font-size: 20px;
+    margin: 20px 0;
+    color: #fff;
+    line-height: 1.5;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.modal-buttons button {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    min-width: 120px;
+}
+
+.confirm-btn {
+    background-color: #4a90e2;
+    color: white;
+}
+
+.cancel-btn {
+    background-color: #f44336;
+    color: white;
+}
+
+/* Responsive Styles */
+@media (max-width: 480px) {
+    .modal-content {
+        padding: 25px;
+        width: 85%;
+        max-width: 320px;
+    }
+
+    .modal-content h3 {
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+
+    .modal-content p {
+        font-size: 18px;
+        margin: 15px 0;
+        line-height: 1.4;
+    }
+
+    .modal-buttons {
+        gap: 15px;
+        margin-top: 25px;
+    }
+
+    .modal-buttons button {
+        padding: 10px 25px;
+        font-size: 16px;
+        min-width: 100px;
+    }
+}
+
+/* Media query for screens 1500px or larger */
+@media screen and (min-width: 481px) and (max-width: 1580px) {
+    .container {
+        max-width: 1200px;
+        padding: 50px 40px;
+    }
+    h1 {
+        font-size: 3em;
+    }
+    h2 {
+        font-size: 2em;
+    }
+    p {
+        font-size: 10px;
+    }
+    input {
+        padding: 15px;
+        font-size: 10px;
+    }
+    button {
+        font-size: 1.8em;
+        padding: 20px 50px;
+    }
+    .loading {
+        width: 120px;
+        height: 120px;
+    }
+    .dot {
+        width: 25px;
+        height: 25px;
+    }
+    .loading-text {
+        font-size: 18px;
+    }
+}
+

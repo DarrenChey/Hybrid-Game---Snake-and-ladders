@@ -1,0 +1,213 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    link(href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css", rel="stylesheet")
+    title Home
+    link(rel="stylesheet", href="/home.css")
+    script.
+      // JavaScript for formatting time and modal functionality
+      function formatMalaysiaTime(timestamp) {
+        if (!timestamp || timestamp === "undefined") {
+          return "Not played yet";
+        }
+
+        const date = new Date(timestamp);
+        // Check if date is invalid
+        if (isNaN(date.getTime())) {
+          return "Not played yet";
+        }
+          const options = {
+          timeZone: 'Asia/Kuala_Lumpur',
+          hour: 'numeric',
+          minute: 'numeric',
+          hour12: true
+        };
+        
+        const timeStr = date.toLocaleTimeString('en-MY', options);
+        const now = new Date();
+        const yesterday = new Date(now);
+        yesterday.setDate(yesterday.getDate() - 1);
+        
+        if (date.toDateString() === now.toDateString()) {
+          return `Today at ${timeStr}`;
+        } else if (date.toDateString() === yesterday.toDateString()) {
+          return `Yesterday at ${timeStr}`;
+        } else {
+          const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+          return `${date.getDate()} ${months[date.getMonth()]} at ${timeStr}`;
+        }
+      }
+
+  body
+    .loading-container(style="display: none;")
+      .loading
+        .dot
+        .dot
+        .dot
+      .loading-text ...
+
+    .container
+      form(action='/logout', method='POST')#logoutForm
+        button#logoutBtn(type='submit')
+          i.fas.fa-sign-out-alt 
+          span Log Out
+
+      h1 Adventure awaits, #[span.username #{username}]!
+      img(src="/images/icon.jpg", alt="Avatar")
+
+      .button-container
+        form(action='/start-game', method='POST')
+          button(type='submit') Start Game
+
+      button#showStatsBtn Show Stats
+      button#showRulesBtn Show Game Rules
+
+    // Stats Modal
+    .modal#statsModal
+      .modal-content
+        h2 User Stats
+        .stats
+          p Email: 
+            span#user_email #{user_email}
+          p Account Created: 
+            span#createdAt #{created_at}
+          p Last Played: 
+            span#lastPlayed #{last_played}
+          p Total Games Hosted: 
+            span#total_games_hosted #{total_games_hosted}
+          p Games Won as Player 1:
+            span#games_won_as_p1 #{games_won_as_p1}   
+          p Games Won as Player 2: 
+            span#games_won_as_p2 #{games_won_as_p2}
+          p Total Correct Answers:
+            span#total_correct_answers #{total_correct_answers}
+          p Total Rolls: 
+            span#total_rolls #{total_rolls}
+
+        button#closeModal Close
+
+    // Rules Modal
+    .modal#rulesModal
+      .modal-content
+        h2 Game Rules
+        ul
+          li
+            .rule-icon 🎲
+            .rule-text Rule 1: Roll the dice to move your piece.
+          li
+            .rule-icon 🧠
+            .rule-text Rule 2: Answer a question correctly for bonus rolls.
+          li
+            .rule-icon 🐍
+            .rule-text Rule 3: Avoid snakes, climb ladders to win!
+          li
+            .rule-icon 🏆
+            .rule-text Rule 4: You need to roll a specific dice number to reach square 100. If you don't, you remain on your current square.
+        button#closeRulesModal Close Rules
+
+    // Logout Confirmation Modal
+    .modal#logoutConfirmModal
+      .modal-content
+        h2 Confirm Logout
+        p Are you sure you want to log out?
+        .button-group
+          button#confirmLogout Yes, Logout
+          button#cancelLogout Cancel
+
+    script.
+      // Format timestamps when the page loads
+      document.addEventListener('DOMContentLoaded', function() {
+        const createdAtElement = document.getElementById('createdAt');
+        const lastPlayedElement = document.getElementById('lastPlayed');
+        
+        if (createdAtElement) {
+          createdAtElement.textContent = formatMalaysiaTime(createdAtElement.textContent);
+        }
+        
+        if (lastPlayedElement) {
+          lastPlayedElement.textContent = formatMalaysiaTime(lastPlayedElement.textContent);
+        }
+      });
+
+      // Modal functionality for Stats
+      document.getElementById('showStatsBtn').addEventListener('click', function() {
+        const modal = document.getElementById('statsModal');
+        modal.classList.add('show');
+        document.body.classList.add('modal-open');
+      });
+
+      document.getElementById('closeModal').addEventListener('click', function() {
+        const modal = document.getElementById('statsModal');
+        modal.classList.remove('show');
+        document.body.classList.remove('modal-open');
+      });
+
+      // Modal functionality for Game Rules
+      document.getElementById('showRulesBtn').addEventListener('click', function() {
+        const modal = document.getElementById('rulesModal');
+        modal.classList.add('show');
+        document.body.classList.add('modal-open');
+      });
+
+      document.getElementById('closeRulesModal').addEventListener('click', function() {
+        const modal = document.getElementById('rulesModal');
+        modal.classList.remove('show');
+        document.body.classList.remove('modal-open');
+      });
+
+      // Logout confirmation functionality
+      document.getElementById('logoutBtn').addEventListener('click', function(event) {
+        event.preventDefault();
+        const modal = document.getElementById('logoutConfirmModal');
+        modal.classList.add('show');
+        document.body.classList.add('modal-open');
+      });
+
+      document.getElementById('confirmLogout').addEventListener('click', function() {
+        const loadingContainer = document.querySelector('.loading-container');
+        loadingContainer.style.display = 'flex';
+        
+        setTimeout(function() {
+          document.getElementById('logoutForm').submit();
+        }, 500);
+      });
+
+      document.getElementById('cancelLogout').addEventListener('click', function() {
+        const modal = document.getElementById('logoutConfirmModal');
+        modal.classList.remove('show');
+        document.body.classList.remove('modal-open');
+      });
+
+      window.addEventListener('click', function(event) {
+        const statsModal = document.getElementById('statsModal');
+        const rulesModal = document.getElementById('rulesModal');
+        const logoutModal = document.getElementById('logoutConfirmModal');
+        
+        if (event.target === statsModal) {
+          statsModal.classList.remove('show');
+          document.body.classList.remove('modal-open');
+        } else if (event.target === rulesModal) {
+          rulesModal.classList.remove('show');
+          document.body.classList.remove('modal-open');
+        } else if (event.target === logoutModal) {
+          logoutModal.classList.remove('show');
+          document.body.classList.remove('modal-open');
+        }
+      });
+
+      document.addEventListener('DOMContentLoaded', function() {
+        const startGameButton = document.querySelector('form[action="/start-game"] button[type="submit"]');
+        const loadingContainer = document.querySelector('.loading-container');
+
+        // Start Game Button Click Event
+        startGameButton.addEventListener('click', function(event) {
+          event.preventDefault();
+          loadingContainer.style.display = 'flex';
+
+          setTimeout(function() {
+            document.querySelector('form[action="/start-game"]').submit();
+          }, 1500);
+        });
+      });

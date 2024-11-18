@@ -1,0 +1,59 @@
+doctype html
+html
+  head
+    title Login Page
+    link(rel="stylesheet", href="/login.css")  
+    script(src="https://code.jquery.com/jquery-3.6.0.min.js")
+  body
+    // Retro Loading Screen (Initially hidden)
+    .loading-container(style="display: none;")
+      .loading
+        .dot
+        .dot
+        .dot
+      .loading-text Loading...
+    
+    // Main container (this is the actual login page content)
+    .container
+      .login-box
+        h1 Welcome to Snakes & Syntax
+        p Roll the dice and navigate the twists and turns of Python programming in this educational twist on a classic board game. Answer coding questions to climb ladders, avoid slippery syntax errors, and race against friends and foes worldwide. Will you slither to success or code your way to the top? The future of fun, Python learning is just a roll away!
+        h2 Let's Snakes & Syntax our way to Python mastery!
+
+        // Display error message if it exists
+        if error
+          .error-message
+            p= error
+
+        form(action="/login" method="POST" id="loginForm")
+          .input-group
+            label(for="user_email") EMAIL
+            input(type="text" name="user_email" required)
+          .input-group
+            label(for="user_password") PASSWORD
+            input(type="password" name="user_password" required)
+          .button-container
+            button(type="submit") Login
+          
+        a.sign-in-button(href="/signup") SIGN IN
+
+    // JavaScript to trigger loading animation
+    script.
+      $(document).ready(function() {
+        $('#loginForm').submit(function(event) {
+          // Prevent form from submitting immediately
+          event.preventDefault();
+          
+          // Show the loading animation
+          $('.loading-container').show();
+          
+          // Hide the login form immediately
+          $('.container').fadeOut(500); // Add fade-out effect for smooth transition
+          
+          // After the animation completes (dots blinking), submit the form
+          setTimeout(function() {
+            // Submit the form after the loading animation (2 seconds)
+            $('#loginForm')[0].submit(); // Submit the form
+          }, 800); // Adjust this to match your loading animation duration
+        });
+      });

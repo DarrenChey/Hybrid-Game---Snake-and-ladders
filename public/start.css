@@ -1,0 +1,169 @@
+/* Fullscreen setup with a gradient background */
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url('images/bgg.jpg');
+    font-family: 'Old Standard TT', serif;
+    background-size: cover;
+    background-position: center;
+    overflow: hidden; /* Prevent scrollbars from appearing */
+    color: #fff; /* Ensure the text is always white */
+}
+
+/* Image styling */
+img {
+    width: 250px; /* Make image circular */
+    height: 250px;
+    border-radius: 50%; /* Circular shape */
+    margin-bottom: 30px;
+    border: 3px solid #fff; /* Border to give image more definition */
+    object-fit: cover; /* Ensure the image covers the circle without distortion */
+    animation: bounce 3s ease-in-out infinite
+}
+
+
+/* Bouncing animation */
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0); /* Start at normal position */
+    }
+    50% {
+        transform: translateY(-20px); /* Move the image 20px up */
+    }
+}
+
+
+/* Container with semi-transparent background */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent dark background */
+    padding: 50px;
+    border-radius: 30px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2); /* Soft shadow for depth */
+    backdrop-filter: blur(10px); /* Optional blur effect */
+}
+
+
+/* Heading with light-colored text for contrast on colorful background */
+h1 {
+    font-family: 'Old Standard TT', serif;
+    font-size: 3.5em;
+    color: #fff; /* White text for high contrast */
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.6); /* Shadow for better legibility */
+    margin-top: 20px;
+    animation: fadeInLogo 2s ease-in-out;
+    text-align: center;
+}
+
+h1:hover {
+    transform: scale(1.05); /* Slightly enlarge the logo */
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.6); /* Shadow for better legibility */
+}
+
+/* Button Styling */
+a.button {
+    display: inline-block;
+    padding: 20px 90px;
+    font-size: 1.6em;
+    font-weight: bold;
+    color: white;
+    background-color: #e74c3c;
+    border-radius: 50px;
+    text-decoration: none;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.2s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+    margin-top: 30px;
+}
+
+/* Button hover and active effects */
+a.button:hover {
+    background-color: #ff7675; /* Color change on hover */
+    transform: translateY(-8px) scale(1.1) rotate(-2deg); /* Lift and slightly rotate the button */
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4); /* Darker shadow */
+    animation: shake 0.5s ease-in-out; /* Shake effect */
+}
+
+/* Button active (click) effect */
+a.button:active {
+    transform: translateY(0) scale(1); /* Button returns to normal size */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Reset shadow on click */
+}
+
+
+/* Shake Animation */
+@keyframes shake {
+    0% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-10px); /* Move to left */
+    }
+    100% {
+        transform: translateX(10px); /* Move to right */
+    }
+}
+
+
+/* Keyframes for Logo and h1 fade-in */
+@keyframes fadeInLogo {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+
+/* Media query for screens 480px or smaller */
+@media (max-width: 480px) {
+    body {
+        font-size: 0.8em;
+    }
+    .container {
+        padding: 20px;
+        border-radius: 20px;
+    }
+    img {
+        width: 150px;
+        height: 150px;
+        margin-bottom: 20px;
+    }
+    h1 {
+        font-size: 2em;
+    }
+    a.button {
+        padding: 15px 60px;
+        font-size: 1.2em;
+    }
+}
+
+/* Media query for screens 1500px or larger */
+@media screen and (min-width: 481px) and (max-width: 1580px) {
+    .container {
+        padding: 80px;
+        border-radius: 40px;
+    }
+    img {
+        width: 300px;
+        height: 300px;
+        margin-bottom: 40px;
+    }
+    h1 {
+        font-size: 4em;
+    }
+    a.button {
+        padding: 25px 120px;
+        font-size: 1.8em;
+    }
+}

@@ -1,0 +1,58 @@
+doctype html
+html
+  head
+    title Sign Up Page
+    link(rel="stylesheet", href="/login.css")
+  body
+    div.container
+      div.login-box
+        h2 Join Snakes & Syntax and level up your Python skills!
+
+        if error
+          div.error-message
+            p= error
+
+        form(action="/signup" method="POST" onsubmit="return confirmSignUp(event)") 
+          div.input-group
+            label(for="username") USERNAME
+            input(type="text" name="username" required)
+          div.input-group
+            label(for="user_email") EMAIL
+            input(type="email" name="user_email" required)
+          div.input-group
+            label(for="user_password") PASSWORD
+            input(type="password" name="user_password" required)
+          div.input-group
+            label(for="confirm_password") CONFIRM PASSWORD
+            input(type="password" name="confirm_password" required)
+          div.button-container
+            button(type="submit") Sign Up
+
+        a.sign-in-button(href="/login") Already have an account? Login here
+
+    // Modal for Confirmation
+    div#confirmation-modal.modal
+      div.modal-content
+        p Are you sure you want to sign up?
+        div.modal-buttons
+          button#confirm-yes(type="button") Yes
+          button#confirm-no(type="button") No
+
+    // Inline JavaScript for modal functionality
+    script.
+      function confirmSignUp(event) {
+        event.preventDefault(); // Prevent form from submitting immediately
+        const modal = document.getElementById("confirmation-modal");
+        modal.style.display = "flex"; // Show modal
+        return false;
+      }
+
+      // Close modal on No button
+      document.getElementById("confirm-no").addEventListener("click", () => {
+        document.getElementById("confirmation-modal").style.display = "none";
+      });
+
+      // Submit form on Yes button
+      document.getElementById("confirm-yes").addEventListener("click", () => {
+        document.querySelector("form").submit();
+      });

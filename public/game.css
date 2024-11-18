@@ -1,0 +1,1140 @@
+.board-container h1 {
+  font-family: 'Orbitron', sans-serif;  /* A space-inspired font */
+  font-size: 2.5em;  /* Larger font size for impact */
+  color: #ffffff;  /* Bright white */
+  text-align: center;  /* Centered text */
+  margin-bottom: 30px;  /* Space below the title */
+  text-transform: uppercase;  /* Uppercase letters */
+  letter-spacing: 4px;  /* Space out letters for a futuristic feel */
+  text-shadow: 2px 2px 10px rgba(255, 255, 255, 0.7), 0 0 15px #00bfff;  /* Glowing shadow effect */
+}
+
+.board-container h1:hover {
+  transform: scale(1.1); /* Hover effect to enlarge */
+  transition: transform 0.3s ease; /* Smooth hover transition */
+}
+
+/* Space-themed body styling */
+body {
+  background: radial-gradient(circle at center, #000428, #1b2735, #090a0f); /* Space gradient */
+  font-family: 'Orbitron', sans-serif; /* Space-themed font */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+body::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4); /* Dark overlay for depth */
+  filter: blur(5px); /* Blurred overlay */
+  z-index: -1;
+}
+
+/* Board container styling */
+.board-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  border: 8px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  width: 90%;
+  max-width: 1800px;
+  height: 90%;
+  max-height: 100vh;
+  margin: 20px auto;
+  box-sizing: border-box;
+  overflow: visible; /* Changed from hidden to visible */
+  background-size: cover;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+  position: relative;
+  z-index: 1; /* Base z-index */
+}
+
+
+
+/* Board grid styling */
+.board {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 5px;
+  background-color: rgba(255, 255, 255, 0.1); /* Subtle translucent background */
+  padding: 10px;
+  border: 3px solid #ffffff;
+  border-radius: 10px;
+  position: relative;
+  max-width: 100%;
+  max-height: 100%;
+  box-sizing: border-box;
+  transform: scale(1); /* Initial scale */
+  transition: transform 0.3s ease;
+}
+
+.board:hover {
+  transform: scale(1.1); /* Hover effect to enlarge */
+  transition: transform 0.3s ease; /* Smooth hover transition */
+}
+
+/* Cell styling */
+.cell {
+  position: relative;
+  aspect-ratio: 1;
+  background-color: rgba(255, 255, 255, 0.2);
+  border: 1px solid #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: #ffcc00;
+  font-size: 1.5em;
+  height: auto;
+  width: auto;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+  z-index: 2; /* Higher than board container */
+}
+
+
+/* Start cell styling */
+.cell.start {
+  background-color: rgba(255, 255, 255, 0.3); /* Brighter start cell */
+  border: 2px solid #00bfff; /* Blue glow effect */
+  color: #ffffff;
+}
+
+/* Glow effect for cells */
+.cell:hover {
+  box-shadow: 0 0 20px #ffffff, 0 0 30px #00bfff;
+  transform: scale(1.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  z-index: 20; /* Highest when hovered */
+}
+
+.cell:hover .snake,
+.cell:hover .ladder {
+  z-index: 21; /* Always above hovered cell */
+}
+
+
+.player1-box, .player2-box {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  min-width: 180px;
+  max-width: 400px;
+  box-sizing: border-box;
+}
+
+.player1-box:hover {
+  transform: scale(1.1); /* Hover effect to enlarge */
+  transition: transform 0.3s ease; /* Smooth hover transition */
+}
+
+.player2-box:hover {
+  transform: scale(1.1); /* Hover effect to enlarge */
+  transition: transform 0.3s ease; /* Smooth hover transition */
+}
+
+/* Player 1 Box  */
+.player1-box {
+  background: rgba(255, 0, 0, 0.2); /* Semi-transparent orange background */
+  border: 2px solid #ff0000; /* Bright orange border */
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.8); /* Glowing orange shadow */
+  color: #ffffff; /* White text for contrast */
+  font-weight: bold; /* Make text bold */
+}
+
+/* Player 2 Box */
+.player2-box {
+  background: rgba(0, 191, 255, 0.2); /* Semi-transparent cyan background */
+  border: 2px solid #00bfff; /* Bright cyan border */
+  box-shadow: 0 0 20px rgba(0, 191, 255, 0.8); /* Glowing cyan shadow */
+  color: #ffffff; /* White text for contrast */
+  font-weight: bold; /* Make text bold */
+}
+
+
+@keyframes player-border {
+  0%, 100% { border-color: var(--border-color); box-shadow: 0 0 15px var(--box-shadow); }
+  50% { border-color: var(--border-color); box-shadow: 0 0 20px var(--box-shadow); }
+}
+
+.player1-box:hover, .player2-box:hover, #exit-btn:hover, .correct-btn:hover, .incorrect-btn:hover {
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.player1-box.active, .player2-box.active {
+  animation: player-border 1.5s ease-in-out infinite;
+}
+
+
+/* Exit Button Styling */
+#exit-btn {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  background-color: #ff4444;  /* Strong red for space vibe */
+  color: #fff;
+  border: none;
+  padding: 22px 34px;  /* Increase padding for larger size */
+  font-size: 2em;  /* Larger font size */
+  border-radius: 10px;  /* Slightly larger border radius */
+  cursor: pointer;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.6), 0px 0px 15px rgba(255, 68, 68, 0.6);  /* Glowing shadow effect */
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover effect for the exit button */
+#exit-btn:hover {
+  background-color: #cc0000;  /* Darker red on hover */
+  box-shadow: 0px 0px 25px rgba(255, 68, 68, 1), 0px 0px 40px rgba(255, 68, 68, 0.8);  /* Stronger glowing shadow on hover */
+}
+
+/* Trigger glowing effect on hover */
+#exit-btn:hover {
+  animation: exitButtonGlow 1s infinite alternate;
+}
+
+
+
+/* Player token styling */
+.player-token {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
+  border: 2px solid #f0e5d6;
+}
+
+.p1-token {
+  background-color: #003366;
+  left: 15%;
+  top: 15%;
+}
+
+.p2-token {
+  background-color: #800000;
+  right: 15%;
+  top: 15%;
+}
+
+/* Game info */
+.game-info {
+  padding: 10px;  /* Add padding to give some spacing */
+  margin-top: -20px;  /* Move the container up by 50px */
+
+}
+
+
+.player-stats {
+  display: flex;
+  flex-direction: row; /* Force side-by-side layout */
+  justify-content: space-between; /* Space out the boxes */
+  width: 100%; /* Full width */
+  max-width: 90%;
+  margin: 0 auto; /* Center container if needed */
+  padding: 10px;
+  box-sizing: border-box;
+  gap: 30px;  /* Adds space between the player boxes */
+
+}
+
+
+/* Roll Dice Button*/
+@keyframes button-glow {
+  0% {
+    box-shadow: 0 0 15px rgba(30, 58, 138, 0.6), 0 0 25px rgba(30, 58, 138, 0.8);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(37, 99, 235, 0.8), 0 0 35px rgba(37, 99, 235, 1);
+  }
+  100% {
+    box-shadow: 0 0 15px rgba(30, 58, 138, 0.6), 0 0 25px rgba(30, 58, 138, 0.8);
+  }
+}
+
+button#roll-dice {
+  width: 100%;  /* Ensure the button stretches across the container */
+  max-width: 300px;  /* Max width to prevent it from becoming too large */
+  padding: 12px 20px;  /* Add some padding for a better click area */
+  background-color: #1e3a8a; /* Deep space blue background */
+  color: #ffffff; /* White text for good contrast */
+  border: 2px solid #0095ff; /* Bright cyan border for a space effect */
+  border-radius: 8px; /* Rounded corners */
+  cursor: pointer;
+  animation: button-glow 2s infinite; /* Add the pulsing glow animation */
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+button#roll-dice:hover {
+  background-color: #2563eb; /* Brighter blue on hover for a glowing effect */
+  transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+
+
+/* Player turn message colors */
+#current-player.player1-turn {
+  color: #ff0000;  /* Bright orange for Player 1 */
+  text-shadow: 2px 2px 8px rgba(255, 0, 0, 0.8), -1px -1px 4px rgba(255, 0, 0, 0.8);  /* Intense orange glow */
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+#current-player.player2-turn {
+  color: #00bfff;  /* Bright cyan for Player 2 */
+  text-shadow: 2px 2px 8px rgba(0, 191, 255, 0.8), -1px -1px 4px rgba(0, 191, 255, 0.8);  /* Intense cyan glow */
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+#current-player {
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+  text-align: center; /* Center aligned for emphasis */
+}
+
+#current-player:hover {
+  transform: scale(1.1); /* Slightly enlarge the text on hover */
+}
+
+
+
+
+/* Specific styling for ladder from box 5 to 27 */
+.cell[data-position="5"] .ladder {
+  height: 600%;          /* Increased height to reach position 27 */
+  width: 300%;          /* Width for proper proportion */
+  transform: rotate(-3deg); /* Angle to point to position 27 */
+  bottom: -150%;           /* Adjusted to start from bottom of cell */
+  left: 20%;           /* Moved starting point more to the left */
+  transform-origin: bottom center; /* Changed origin point for better rotation */
+
+ }
+ 
+/* Keep other ladder styles if needed */
+.cell[data-position="12"] .ladder {
+  height: 600%;          /* Increased height to reach position 27 */
+  width: 300%;          /* Width for proper proportion */
+  transform: rotate(-45deg); /* Angle to point to position 27 */
+  bottom: -50%;           /* Adjusted to start from bottom of cell */
+  left: 110%;           /* Moved starting point more to the left */
+  transform-origin: bottom center; /* Changed origin point for better rotation */
+}
+
+/* Keep other ladder styles if needed */
+.cell[data-position="24"] .ladder {
+  height: 600%;          /* Increased height to reach position 27 */
+  width: 300%;          /* Width for proper proportion */
+  transform: rotate(720deg); /* Angle to point to position 27 */
+  bottom: -140%;           /* Adjusted to start from bottom of cell */
+  left: 15%;           /* Moved starting point more to the left */
+  transform-origin: bottom center; /* Changed origin point for better rotation */
+}
+
+/* Keep other ladder styles if needed */
+.cell[data-position="65"] .ladder {
+  height: 600%;          /* Increased height to reach position 27 */
+  width: 300%;          /* Width for proper proportion */
+  transform: rotate(-720deg); /* Angle to point to position 27 */
+  bottom: -140%;           /* Adjusted to start from bottom of cell */
+  left: 15%;           /* Moved starting point more to the left */
+  transform-origin: bottom center; /* Changed origin point for better rotation */
+}
+
+/* Keep other ladder styles if needed */
+.cell[data-position="62"] .ladder {
+  height: 600%;          /* Increased height to reach position 27 */
+  width: 300%;          /* Width for proper proportion */
+  transform: rotate(-720deg); /* Angle to point to position 27 */
+  bottom: -140%;           /* Adjusted to start from bottom of cell */
+  left: 0%;           /* Moved starting point more to the left */
+  transform-origin: bottom center; /* Changed origin point for better rotation */
+}
+
+.snake,
+.ladder {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none; /* Prevents interference with cell hover */
+}
+
+/* Snake positioning with proper z-index */
+.cell .snake {
+  z-index: 10; /* Higher than cells */
+}
+
+/* Snake from position 43 to 17 */
+.cell[data-position="43"] .snake {
+  height: 600%;
+  width: 300%;
+  transform: rotate(48deg);
+  top: 10%;
+  left: 75%;
+  transform-origin: top center;
+}
+
+.cell[data-position="56"] .snake {
+  height: 600%;
+  width: 300%;
+  transform: rotate(-8deg);
+  top: -120%;
+  left: -40%;
+  transform-origin: top center;
+}
+
+
+/* Snake from position 71 to 49 */
+.cell[data-position="72"] .snake {
+  height: 500%;
+  width: 280%;
+  transform: rotate(20deg);
+  top: 10%;
+  left: 55%;
+  transform-origin: top center;
+}
+
+
+/* Snake from position 95 to 75 */
+.cell[data-position="95"] .snake {
+  height: 400%;
+  width: 250%;
+  transform: rotate(-380deg);
+  top: -90%;
+  left: -35%;
+  transform-origin: top center;
+}
+
+/* Snake hover and animation effects */
+.has-snake,
+.has-ladder {
+  position: relative;
+  z-index: 3; /* Higher than regular cells */
+}
+
+.has-snake {
+  background-color: rgba(255, 99, 71, 0.2);
+  border: 2px solid #FF6347;
+}
+
+.has-ladder {
+  background-color: rgba(41, 255, 66, 0.2);
+  border: 2px solid #00532b;
+}
+
+/* CSS for Board Animations */
+/* CSS for Board Animations - Space Theme */
+@keyframes player1-border {
+  0% { 
+      border-color: #ff0000;  /* Bright orange for Player 1 */
+      box-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
+  }
+  50% { 
+      border-color: #ff0000; 
+      box-shadow: 0 0 25px rgba(255, 0, 0, 0.9); /* Stronger orange glow at midpoint */
+  }
+  100% { 
+      border-color: #ff0000;
+      box-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
+  }
+}
+
+@keyframes player2-border {
+  0% { 
+      border-color: #00bfff;  /* Bright cyan for Player 2 */
+      box-shadow: 0 0 15px rgba(0, 191, 255, 0.6);
+  }
+  50% { 
+      border-color: #00bfff;
+      box-shadow: 0 0 25px rgba(0, 191, 255, 0.9); /* Stronger cyan glow at midpoint */
+  }
+  100% { 
+      border-color: #00bfff;
+      box-shadow: 0 0 15px rgba(0, 191, 255, 0.6);
+  }
+}
+
+.board.player1-turn {
+  animation: player1-border 1.5s ease-in-out infinite; /* Smooth pulsating animation */
+}
+
+.board.player2-turn {
+  animation: player2-border 1.5s ease-in-out infinite; /* Smooth pulsating animation */
+}
+
+/* Card prompt modal background */
+#card-prompt-modal {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(25, 20, 52, 0.95);  /* Deep space purple background */
+  border: 2px solid #FF00FF;  /* Magenta neon border */
+  backdrop-filter: blur(5px); /* Blur effect */
+  border-radius: 15px;
+  padding: 30px;
+  width: 400px;
+  max-width: 90%;
+  box-shadow: 0 0 15px 5px rgba(255, 0, 255, 0.3);  /* Soft magenta glow */
+  color: #fff;
+  text-align: center;
+  font-family: 'Orbitron', sans-serif;  /* Space-like font */
+  z-index: 1000;
+}
+
+/* Card prompt content */
+.card-prompt-content h3 {
+  font-size: 1.8em;
+  color: #fa57fa;  /* Magenta neon color for the header */
+  margin-bottom: 15px;
+  text-shadow: 0 0 5px #FF00FF, 0 0 10px #FF00FF;
+}
+
+.card-prompt-content p {
+  font-size: 1.2em;
+  color: #D4FCFF;  /* Light teal text color */
+  margin-bottom: 20px;
+}
+
+
+/* Audio Player Positioning */
+.audio-player {
+  border-radius: 12px;
+  padding: 15px;
+  position: fixed;
+  top: 20px;  /* Keep it at the top */
+  right: 20px; /* Keep it at the right */
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.4), 0 0 30px rgba(0, 255, 255, 0.6); /* Glowing effect */
+  backdrop-filter: blur(5px); /* Blur effect behind the player */
+}
+
+/* Hide Default Audio Controls */
+#background-audio {
+  width: 100%;
+  margin-bottom: 10px;
+  display: none; /* Hide the default audio controls */
+}
+
+/* Audio Play Button */
+.audio-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+}
+
+#play-button {
+  border: none;
+  border-radius: 50%;
+  width: 70px;  /* Make the play button larger */
+  height: 70px; /* Make the play button larger */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.8); /* Glowing border */
+}
+
+#play-button:hover {
+  transform: scale(1.1); /* Slightly enlarge on hover */
+  box-shadow: 0 0 30px rgba(0, 255, 255, 1); /* Enhanced glowing effect */
+}
+
+/* Larger Play Icon */
+.play-icon {
+  width: 40px; /* Larger play icon */
+  height: 40px; /* Larger play icon */
+  object-fit: contain;
+  filter: drop-shadow(0 0 10px #00ffff); /* Glowing play icon */
+}
+
+/* Hide Audio Controls */
+audio::-webkit-media-controls-panel {
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.5); /* Dark space background for controls */
+}
+
+audio::-webkit-media-controls-play-button,
+audio::-webkit-media-controls-volume-slider,
+audio::-webkit-media-controls-mute-button {
+  display: none;
+}
+
+/* Space Themed Exit Modal */
+.exit-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.7); /* Dark, space-like background */
+  backdrop-filter: blur(10px); /* Blur effect to give a galaxy feel */
+  z-index: 9999;
+  overflow: hidden; /* Prevent content overflow */
+}
+
+/* Gaming Modal Content Container */
+.modal-content {
+  background: rgba(25, 25, 35, 0.95); /* Dark background with slight transparency */
+  padding: 30px;
+  border-radius: 12px; /* Rounded corners */
+  border: 2px solid #4a90e2; /* Subtle border color */
+  box-shadow: 0 0 15px rgba(74, 144, 226, 0.3); /* Light glow effect */
+  color: #fff; /* White text for contrast */
+  width: 90%;
+  max-width: 500px;
+  max-height: 70vh; /* Adjust height to ensure readability */
+  overflow-y: auto; /* Scroll if content exceeds max height */
+  animation: modalGameIn 0.5s ease-out;
+  text-align: center;
+}
+
+/* Modal Header Styling */
+.modal-content h2 {
+  color: #4a90e2; /* Blue color for the header */
+  margin-bottom: 20px;
+  font-size: 1.5em;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-shadow: 0 0 6px rgba(74, 144, 226, 0.4); /* Subtle glow effect */
+}
+
+/* Modal Message */
+.modal-content p {
+  font-size: 1.2rem;
+  color: #e0e0e0;
+  margin-bottom: 20px;
+}
+
+/* Modal Button Group */
+.modal-buttons {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 10px;
+}
+
+.modal-buttons button {
+  padding: 10px 20px;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+  background: #4caf50; /* Bright cosmic green */
+  color: white;
+  text-shadow: 0 0 5px #00ffcc;
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.8); /* Glowing button effect */
+}
+
+/* Button Hover Effects */
+.modal-buttons button:hover {
+  background: #45a049;
+  transform: scale(1.05);
+}
+
+.modal-buttons button:active {
+  transform: scale(0.98);
+}
+
+/* Media Query for Screens 480px or smaller */
+@media (max-width: 480px) {
+  .modal-content {
+    width: 85%; /* Reduce width for smaller screens */
+    padding: 15px; /* Adjust padding for smaller screens */
+    max-height: 60vh; /* Adjust max height to make sure the modal fits on the screen */
+  }
+
+  .modal-content h2 {
+    font-size: 1.2em; /* Slightly smaller header text */
+    margin-bottom: 15px; /* Less space for smaller screens */
+  }
+
+  .modal-content p {
+    font-size: 1rem; /* Smaller text for better readability on small screens */
+    margin-bottom: 15px; /* Adjust margin for smaller screens */
+  }
+
+  .modal-buttons button {
+    font-size: 1rem; /* Smaller font size for buttons */
+    padding: 8px 15px; /* Adjust button padding */
+  }
+
+  .modal-buttons {
+    flex-direction: column; /* Stack buttons vertically on small screens */
+    gap: 5px; /* Less space between buttons */
+  }
+}
+
+
+
+/* Space theme for buttons using magenta */
+button.correct-btn, button.incorrect-btn {
+  background-color: #3D003D;  /* Darker magenta shade for the background */
+  color: #fa57fa;  /* Magenta neon color for the header */
+  border: 1px solid #fa57fa;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 8px #fa57fa;  /* Magenta glow effect */
+  margin: 5px;
+}
+
+button.correct-btn:hover, button.incorrect-btn:hover {
+  background-color: #fa57fa;
+  color: #3D003D;  /* Invert colors on hover */
+  box-shadow: 0 0 15px #FF00FF;  /* Stronger magenta glow on hover */
+}
+
+/* Category indicators on the board */
+.cell[data-position="3"] {
+  background-color: #e8f5e9; /* Light green for Basic */
+  border: 2px solid #4CAF50;
+}
+
+.cell[data-position="8"] {
+  background-color: #e8f5e9; /* Light green for Basic */
+  border: 2px solid #4CAF50;
+}
+
+.cell[data-position="13"] {
+  background-color: #e8f5e9; /* Light green for Basic */
+  border: 2px solid #4CAF50;
+}
+
+.cell[data-position="18"] {
+  background-color: #e8f5e9; /* Light green for Basic */
+  border: 2px solid #4CAF50;
+}
+
+.cell[data-position="21"] {
+  background-color: #e8f5e9; /* Light green for Basic */
+  border: 2px solid #4CAF50;
+}
+
+.cell[data-position="28"] {
+  background-color: #e8f5e9; /* Light green for Basic */
+  border: 2px solid #4CAF50;
+}
+
+.cell[data-position="31"] {
+  background-color: #e8f5e9; /* Light green for Basic */
+  border: 2px solid #4CAF50;
+}
+
+.cell[data-position="40"] {
+  background-color: #e8f5e9; /* Light green for Basic */
+  border: 2px solid #4CAF50;
+}
+
+.cell[data-position="41"] {
+  background-color: #e8f5e9; /* Light green for Basic */
+  border: 2px solid #4CAF50;
+}
+
+.cell[data-position="48"] {
+  background-color: #e8f5e9; /* Light green for Basic */
+  border: 2px solid #4CAF50;
+}
+
+.cell[data-position="67"] {
+  background-color: #e8f5e9; /* Light green for Basic */
+  border: 2px solid #4CAF50;
+}
+
+.cell[data-position="73"] {
+  background-color: #e8f5e9; /* Light green for Basic */
+  border: 2px solid #4CAF50;
+}
+
+.cell[data-position="77"] {
+  background-color: #e8f5e9; /* Light green for Basic */
+  border: 2px solid #4CAF50;
+}
+
+.cell[data-position="80"] {
+  background-color: #e8f5e9; /* Light green for Basic */
+  border: 2px solid #4CAF50;
+}
+
+.cell[data-position="85"] {
+  background-color: #e8f5e9; /* Light green for Basic */
+  border: 2px solid #4CAF50;
+}
+
+.cell[data-position="92"] {
+  background-color: #e8f5e9; /* Light green for Basic */
+  border: 2px solid #4CAF50;
+}
+
+.cell[data-position="97"] {
+  background-color: #e8f5e9; /* Light green for Basic */
+  border: 2px solid #4CAF50;
+}
+
+
+/* Modal Background */
+#stats-modal {
+  display: none; /* Hidden by default */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8); /* Semi-transparent dark background */
+  z-index: 999; /* Make sure modal is on top */
+  overflow: hidden;
+  animation: fadeIn 0.5s ease; /* Fade-in effect for the modal */
+}
+
+/* Modal Content */
+.stats-card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.7); /* Dark background with slight transparency */
+  color: #ffffff; /* White text */
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 0 30px rgba(0, 255, 255, 0.6); /* Cyan glow shadow */
+  width: 80%;
+  max-width: 600px;
+  text-align: center;
+  font-family: 'Georgia', serif;
+  animation: popUp 0.5s ease-out; /* Popup effect */
+}
+
+/* Header for Modal */
+.stats-header {
+  font-size: 1.5em;
+  margin-bottom: 20px;
+  color: #00bfff; /* Space blue */
+  font-weight: bold;
+  text-shadow: 2px 2px 5px rgba(0, 191, 255, 0.6); /* Glowing text */
+}
+
+/* Player Stats Box */
+.player-stats-box {
+  background: rgba(255, 255, 255, 0.1); /* Slight transparency */
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.5); /* Glowing cyan box-shadow */
+}
+
+/* Player 1 Stats Box */
+#player1-stats {
+  background: rgba(255, 0, 0, 0.3); /* Semi-transparent red for Player 1 */
+  border: 2px solid #ff4444; /* Red border */
+  box-shadow: 0 0 20px rgba(255, 68, 68, 0.6); /* Red glow */
+}
+
+#player1-title {
+  font-size: 1.3em;
+  color: #ff4444; /* Red color */
+  margin-bottom: 10px;
+  font-weight: bold;
+  text-shadow: 2px 2px 5px rgba(255, 0, 0, 0.6); /* Glowing red text */
+}
+
+/* Player 2 Stats Box */
+#player2-stats {
+  background: rgba(0, 0, 255, 0.3); /* Semi-transparent blue for Player 2 */
+  border: 2px solid #3838c5; /* Blue border */
+  box-shadow: 0 0 20px rgba(68, 68, 255, 0.6); /* Blue glow */
+}
+
+#player2-title {
+  font-size: 1.3em;
+  color: #7474c5; /* Blue color */
+  margin-bottom: 10px;
+  font-weight: bold;
+  text-shadow: 2px 2px 5px rgba(68, 68, 255, 0.6); /* Glowing blue text */
+}
+
+/* Stats Row */
+.stats-row {
+  margin-bottom: 8px;
+  font-size: 1em;
+}
+
+.stats-row span {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.stats-row span:last-child {
+  font-weight: bold;
+  color: #fdf5e6; /* Light space-themed color */
+}
+
+/* Animation for modal */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes popUp {
+  from {
+    transform: translate(-50%, -60%);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
+}
+
+/* Winner Glow Effect */
+#player1-stats.winner {
+  background: rgba(255, 0, 0, 0.6); /* Stronger red for the winner */
+  border: 2px solid #ff4444; /* Red border */
+  box-shadow: 0 0 25px rgba(255, 68, 68, 0.8), 0 0 35px rgba(255, 68, 68, 0.6); /* Glowing red */
+}
+
+#player2-stats.winner {
+  background: rgba(0, 0, 255, 0.6); /* Stronger blue for the winner */
+  border: 2px solid #4646f4; /* Blue border */
+  box-shadow: 0 0 25px rgba(68, 68, 255, 0.8), 0 0 35px rgba(68, 68, 255, 0.6); /* Glowing blue */
+}
+
+/* Adding a winner glow animation for a pulsating effect */
+@keyframes winnerGlow {
+  0% {
+    box-shadow: 0 0 25px rgba(255, 68, 68, 0.8), 0 0 35px rgba(255, 68, 68, 0.6); /* Player 1 Red Glow */
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(255, 68, 68, 1), 0 0 50px rgba(255, 68, 68, 0.8); /* Stronger Red Glow */
+  }
+  100% {
+    box-shadow: 0 0 25px rgba(255, 68, 68, 0.8), 0 0 35px rgba(255, 68, 68, 0.6); /* Back to normal glow */
+  }
+}
+
+@keyframes winnerGlowBlue {
+  0% {
+    box-shadow: 0 0 25px rgba(68, 68, 255, 0.8), 0 0 35px rgba(68, 68, 255, 0.6); /* Player 2 Blue Glow */
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(68, 68, 255, 1), 0 0 50px rgba(68, 68, 255, 0.8); /* Stronger Blue Glow */
+  }
+  100% {
+    box-shadow: 0 0 25px rgba(68, 68, 255, 0.8), 0 0 35px rgba(68, 68, 255, 0.6); /* Back to normal glow */
+  }
+}
+
+/* Apply animation when the player wins */
+#player1-stats.winner {
+  animation: winnerGlow 1.5s ease-in-out infinite;
+}
+
+#player2-stats.winner {
+  animation: winnerGlowBlue 1.5s ease-in-out infinite;
+}
+
+
+/* Close Button */
+#close-modal {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 10px;
+  background: rgba(255, 0, 0, 0.5); /* Red background */
+  color: #fff;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.2em;
+  transition: background 0.3s ease;
+}
+
+#close-modal:hover {
+  background: rgba(255, 0, 0, 0.8); /* Darker red on hover */
+}
+
+.quit-button {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: #ef4444;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.quit-button:hover {
+  background: #dc2626;
+}
+
+
+/* Responsive styling for screens 480px or smaller */
+@media (max-width: 480px) {
+  .board-container {
+    width: 100%;                /* Full width for small screens */
+    padding: 10px;              /* Less padding */
+    border-width: 3px;          /* Thinner border */
+
+  }
+
+  .board {
+    grid-template-columns: repeat(5, 1fr);  /* Adjust grid layout */
+    gap: 2px;                   /* Reduce grid gap */
+    padding: 5px;               /* Less padding for board */
+    border-width: 1px;          /* Thinner border for board */
+  }
+
+  .cell {
+    font-size: 0.6em;           /* Smaller font size */
+    border-width: 0.5px;        /* Thinner borders */
+  }
+
+  /* Heading adjustments */
+  .board-container h1 {
+    font-size: 1.5em;           /* Smaller heading size */
+    margin-bottom: 10px;        /* Adjust spacing */
+  }
+
+  /* Player boxes: stack vertically and reduce size */
+  .player1-box, .player2-box {
+    min-width: 120px;           /* Reduce minimum width */
+    max-width: 100%;            /* Make full-width */
+    padding: 5px;               /* Reduce padding */
+    font-size: 0.9em;           /* Smaller font size */
+    margin-bottom: 10px;        /* Space between player boxes */
+  }
+
+  /* Roll dice button */
+  button#roll-dice {
+    max-width: 100%;            /* Full width for button */
+    padding: 8px 12px;          /* Smaller padding */
+    font-size: 1em;             /* Adjust font size */
+  }
+
+  /* Exit button */
+  #exit-btn {
+    padding: 10px 15px;         /* Smaller padding */
+    font-size: 1.2em;           /* Adjust font size */
+  }
+
+  /* Current player display */
+  #current-player {
+    font-size: 1.2em;           /* Smaller font size */
+    margin-bottom: 10px;        /* Adjust spacing */
+  }
+
+  /* Make player tokens smaller */
+  .player-token {
+    width: 12px;
+    height: 12px;
+  }
+
+  /* Adjust active player box animation */
+  .player1-box.active, .player2-box.active {
+    animation: player-border 1s ease-in-out infinite;
+  }
+
+  /* Stack layout modifications for better readability on small screens */
+  .board-container, .player1-box, .player2-box, button#roll-dice, #exit-btn, #current-player {
+    text-align: center;
+  }
+}
+
+.player-box {
+  flex: 1;
+  min-width: 200px;
+  max-height: 6100px;  /* Adjust the max-width to make the box wider */
+
+}
+
+
+@media screen and (min-width: 481px) and (max-width: 1580px) {
+  body {
+    font-size: 15px;
+    background-color: rgb(255, 0, 136);
+  }
+
+  .board-container {
+    width: 70%;
+    height: 100%;
+  }
+
+  .board-container h1 {
+    margin-top: 20px;
+  }
+
+  .cell{
+    font-size: 1em;  /* Default font size */    
+  }
+
+  .player1-box,
+  .player2-box {
+    margin-top: 1px;
+    width: 10%;
+    max-width: 10%;
+  }
+
+  button#roll-dice {
+    max-width: 350px;  /* Max width for roll dice button */
+    padding: 15px 25px;  /* Increase padding for bigger button */
+    font-size: 1.5em;  /* Slightly increase font size */
+  }
+}
+
+@media screen and (min-width: 1581px) and (max-width: 5000px) {
+  body {
+    font-size: 20px;
+    background-color: rgb(255, 0, 89);
+  }
+
+  .board-container {
+    width: 70%;
+    height: 100%;
+  }
+
+  .cell{
+    font-size: 1.3em;  /* Default font size */    
+  }
+
+  .player1-box,
+  .player2-box {
+    width: 10%;
+    max-width: 600px;  /* Increase the max-width on larger screens */
+  }
+
+  button#roll-dice {
+    max-width: 350px;  /* Max width for roll dice button */
+    padding: 15px 25px;  /* Increase padding for bigger button */
+    font-size: 1.5em;  /* Slightly increase font size */
+  }
+}  
+  

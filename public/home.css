@@ -1,0 +1,964 @@
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: url('images/spacebg.jpg');
+  font-family: 'Old Standard TT', serif;
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+  padding: 20px;
+  overflow: hidden;
+  justify-content: center; /* Add this to center vertically */
+
+}
+
+
+/* Container styling */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.75); /* Slightly darken overlay */
+  padding: 50px;
+  border-radius: 30px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(12px);
+  max-width: 800px;
+  width: 90%;
+}
+
+
+/* Welcome heading styles */
+.container h1 {
+  font-size: 4em;
+  font-weight: 700;
+  margin-bottom: 30px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 3px 3px 10px rgba(0, 0, 0, 0.7);
+  position: relative;
+  padding-bottom: 15px;
+  font-family: 'Orbitron', sans-serif;
+  background: linear-gradient(90deg, #ffae00, #ff0077, #6ec8ff, #ff86e2, #ffae00); /* orange, pink, blue, purple, repeat */
+  color: transparent;
+  background-clip: text;
+  background-size: 300%; /* For scroll effect */
+  animation: gradientShift 5s ease-in-out infinite;
+}
+
+/* Add decorative underline */
+.container h1::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #6ec8ff, transparent);
+  border-radius: 2px;
+}
+
+/* Keyframes for a cosmic gradient effect */
+@keyframes gradientShift {
+  0% {
+    background-position: 0%;
+  }
+  50% {
+    background-position: 100%;
+  }
+  100% {
+    background-position: 0%;
+  }
+}
+
+
+/* Scrolling shine animation */
+@keyframes gradientShine {
+  0% { background-position: 0%; }
+  100% { background-position: 200%; }
+}
+
+/* Responsive adjustments */
+@media screen and (min-width: 481px) and (max-width: 1580px) {
+  .container h1 {
+    font-size: 2em;
+    padding-bottom: 12px;
+    
+    
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .container h1 {
+    font-size: 1.8em;
+    padding-top: 40px;
+  }
+}
+
+
+/* Add hover animation */
+.container h1:hover {
+  transform: scale(1.02);
+  transition: transform 0.3s ease;
+}
+
+/* Title */
+.modal-content h2 {
+  color: #00ffcc;
+  font-family: 'Orbitron', sans-serif; /* A bold, futuristic font */
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+  text-shadow: 0 0 8px #00ffcc, 0 0 15px #007a66;
+}
+
+/* Message */
+.modal-content p {
+  color: #e0e0e0;
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+  font-family: Arial, sans-serif;
+}
+
+/* Button Group */
+.button-group {
+  display: flex;
+  justify-content: space-between;
+}
+
+.button-group button {
+  padding: 10px 20px;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 5px;
+  font-family: 'Orbitron', sans-serif;
+}
+
+/* Confirm Button */
+#confirmLogout {
+  background-color: #00ffcc;
+  color: #1a1a2e;
+  text-shadow: 0 0 5px #00ffcc, 0 0 10px #007a66;
+}
+
+#confirmLogout:hover {
+  background-color: #00e6b8;
+  box-shadow: 0 0 15px rgba(0, 255, 204, 0.8);
+}
+
+/* Cancel Button */
+#cancelLogout {
+  background-color: #333;
+  color: #ff4c4c;
+  border: 1px solid #ff4c4c;
+  text-shadow: 0 0 5px #ff4c4c, 0 0 10px #a30000;
+}
+
+#cancelLogout:hover {
+  background-color: #ff4c4c;
+  color: #1a1a2e;
+  box-shadow: 0 0 15px rgba(255, 76, 76, 0.8);
+}
+
+
+
+/* Profile image styling */
+img {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  margin-bottom: 30px;
+  border: 3px solid #fff;
+  object-fit: cover;
+  animation: bounce 3s ease-in-out infinite;
+}
+
+
+/* Button styling */
+button {
+  padding: 20px 90px;
+  font-size: 1.6em;
+  font-weight: bold;
+  color: white;
+  background-color: #e74c3c;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.2s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  margin-top: 20px;
+}
+
+button:hover {
+  background-color: #ff7675;
+  transform: translateY(-8px) scale(1.1) rotate(-2deg);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
+  animation: shake 0.5s ease-in-out;
+}
+
+button:active {
+  transform: translateY(0) scale(1);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Base Modal Styling */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+.modal#rulesModal .modal-content {
+  padding: 40px;
+  border-radius: 20px;
+  position: relative;
+  width: 90%;
+  max-width: 500px;
+  max-height: 70vh;
+  color: #fff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  animation: modalIn 0.5s ease-out;
+  transform-style: preserve-3d;
+  text-align: left;
+  overflow-y: auto;
+}
+
+.modal#rulesModal h2 {
+  font-size: 2.2em;
+  font-weight: 600;
+  color: #fff;
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Modernize the List Style for Rules */
+.modal#rulesModal ul {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 20px;
+}
+
+.modal#rulesModal li {
+  display: flex;
+  align-items: center;
+  font-size: 1.2em;
+  padding: 15px 25px;
+  border-radius: 12px;
+  margin-bottom: 15px;
+  background: rgba(26, 188, 156, 0.2);
+  transition: all 0.3s ease;
+  position: relative;
+  color: #fff;
+}
+
+.modal#rulesModal li:hover {
+  background: rgba(26, 188, 156, 0.4);
+  transform: translateX(10px);
+}
+
+.modal#rulesModal .rule-icon {
+  font-size: 1.8em;
+  margin-right: 20px;
+  transition: transform 0.2s ease;
+}
+
+/* Hover effect for icons */
+.modal#rulesModal li:hover .rule-icon {
+  transform: scale(1.2);
+}
+
+.modal#rulesModal .rule-text {
+  font-weight: 500;
+  text-transform: capitalize;
+  letter-spacing: 1px;
+  line-height: 1.4;
+}
+
+/* Make rules more modern with a gradient effect */
+.modal#rulesModal li:nth-child(odd) {
+  background: linear-gradient(135deg, rgba(46, 204, 113, 0.3), rgba(52, 152, 219, 0.3));
+}
+
+.modal#rulesModal li:nth-child(even) {
+  background: linear-gradient(135deg, rgba(241, 196, 15, 0.3), rgba(231, 76, 60, 0.3));
+}
+
+/* Styling for the Close Button (Modern Look) */
+#closeRulesModal {
+  color: white;
+  padding: 14px 30px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 1.1em;
+  margin-top: 20px;
+  width: 100%;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+#closeRulesModal:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+}
+
+#closeRulesModal:active {
+  transform: translateY(2px);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Modal Animation */
+@keyframes modalIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Media Queries for Responsive Design */
+@media screen and (min-width: 481px) and (max-width: 1580px) {
+  .modal#rulesModal .modal-content {
+    padding: 20px;
+    max-width: 90%;
+    max-height: 80vh;
+  }
+
+  .modal#rulesModal h2 {
+    font-size: 1.8em;
+  }
+
+  .modal#rulesModal li {
+    font-size: 1em;
+    padding: 10px 15px;
+  }
+
+  #closeRulesModal {
+    padding: 12px 25px;
+    font-size: 1em;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal#rulesModal .modal-content {
+    padding: 15px;
+    max-width: 95%;
+    max-height: 90vh;
+    
+  }
+
+  .modal#rulesModal h2 {
+    font-size: 1.5em;
+  }
+
+  .modal#rulesModal li {
+    font-size: 0.9em;
+    padding: 8px 12px;
+  }
+
+  #closeRulesModal {
+    padding: 10px 20px;
+    font-size: 0.9em;
+  }
+}
+
+
+/* Retro Loading Container */
+.loading-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw; /* Use 100% of the viewport width */
+  height: 100vh; /* Use 100% of the viewport height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  z-index: 9999; /* Make sure it stays on top */
+}
+
+/* Retro Loading Animation */
+.loading {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100px;
+  height: 100px;
+  position: relative;
+}
+
+.dot {
+  width: 20px;
+  height: 20px;
+  background-color: #ff5733;
+  border-radius: 50%;
+  animation: bounce 1.5s infinite ease-in-out;
+}
+
+/* Animation for bouncing dots */
+@keyframes bounce {
+  0%, 100% {
+      transform: translateY(0);
+  }
+  50% {
+      transform: translateY(-20px);
+  }
+}
+
+.dot:nth-child(1) {
+  animation-delay: 0s;
+}
+.dot:nth-child(2) {
+  animation-delay: 0.3s;
+}
+.dot:nth-child(3) {
+  animation-delay: 0.6s;
+}
+
+/* Text Blinking Animation */
+.loading-text {
+  position: absolute;
+  bottom: -40px;
+  font-size: 16px;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  animation: blinkText 1s infinite step-start;
+}
+
+
+
+/* Gaming Modal Content Container */
+.modal-content {
+  background: linear-gradient(145deg, rgba(25, 25, 35, 0.95), rgba(40, 40, 55, 0.95));
+  padding: 40px;
+  border-radius: 20px;
+  border: 2px solid #4a90e2;
+  box-shadow: 0 0 30px rgba(74, 144, 226, 0.3),
+              inset 0 0 15px rgba(74, 144, 226, 0.2);
+  position: relative;
+  width: 90%;
+  max-width: 500px;
+  max-height: 80vh;
+  overflow-y: auto;
+  color: #fff;
+  transform-style: preserve-3d;
+  animation: modalGameIn 0.5s ease-out;
+  overflow: hidden; /* Prevent modal background scrolling */
+}
+
+/* Modal Header Styling */
+.modal-content h2 {
+  color: #4a90e2;
+  margin-bottom: 30px;
+  text-align: center;
+  font-size: 1.7em;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 0 0 10px rgba(74, 144, 226, 0.5);
+  border-bottom: 2px solid #4a90e2;
+  padding-bottom: 1px;
+}
+
+/* Stats Section Styling */
+.stats {
+  margin: 20px 0;
+  padding: 15px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
+  border: 1px solid rgb(74, 145, 226);
+}
+
+.stats p {
+  margin: 15px 0;
+  padding: 12px 20px;
+  background: rgba(74, 144, 226, 0.1);
+  border-radius: 10px;
+  font-size: 1.1em;
+  color: #fff;
+  border-left: 4px solid #4a90e2;
+  transition: all 0.3s ease;
+  display: flex;
+  justify-content: space-between;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.stats p:hover {
+  transform: translateX(5px);
+  background: rgb(0, 0, 0);
+  box-shadow: 0 0 15px rgba(74, 144, 226, 0.2);
+}
+
+/* Style for special stats */
+.stats p:nth-child(3) {
+  /* Last Played */
+  border-left-color: #ff4757;
+}
+
+.stats p:nth-child(6), 
+.stats p:nth-child(7) {
+  /* Games Won stats */
+  border-left-color: #ffd700;
+}
+
+.stats p:nth-child(8) {
+  /* Total Correct Answers */
+  border-left-color: #2ecc71;
+}
+
+/* Add value highlighting */
+.stats p span {
+  background: rgba(74, 144, 226, 0.1);
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+}
+
+.stats p:hover span {
+  background: rgba(74, 144, 226, 0.2);
+  transform: scale(1.1);
+}
+
+
+/* Close Button Styling */
+#closeModal {
+  background: linear-gradient(45deg, #e74c3c, #c0392b);
+  color: white;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 1.1em;
+  margin-top: 20px;
+  width: 100%;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+#closeModal:before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: rgba(255, 255, 255, 0.1);
+  transform: rotate(45deg);
+  transition: all 0.3s ease;
+  opacity: 0;
+}
+
+#closeModal:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+#closeModal:hover:before {
+  opacity: 1;
+  transform: rotate(45deg) translateY(-50%);
+}
+
+#closeModal:active {
+  transform: translateY(2px);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Updated Logout Button Styling */
+#logoutBtn {
+  position: fixed; /* Changed from absolute to fixed for consistent visibility */
+  top: 20px;
+  left: 20px;
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 50px;
+  font-size: 1.2em;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s, transform 0.3s ease, box-shadow 0.3s;
+  z-index: 9999; /* Ensure it's on top of other elements */
+  width: auto; /* Ensures the button size is responsive */
+}
+
+#logoutBtn i {
+  margin-right: 8px;  /* Adds space between the icon and text */
+  font-size: 1.4em;
+}
+
+/* Hover effect */
+#logoutBtn:hover {
+  background-color: #ff7675;
+  transform: scale(1.1) rotate(10deg);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Active effect */
+#logoutBtn:active {
+  background-color: #ff3b36;
+  transform: scale(1) rotate(0deg);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive adjustments (optional) */
+@media (max-width: 768px) {
+  #logoutBtn {
+    font-size: 1em;
+    padding: 10px 20px;
+  }
+
+  #logoutBtn i {
+    font-size: 1.2em;
+  }
+}
+
+/* Responsive for smaller screens */
+@media screen and (min-width: 481px) and (max-width: 1580px) {
+  #logoutBtn {
+    top: 10px;
+    left: 10px;
+    padding: 10px 20px;
+  }
+
+  #logoutBtn i {
+    font-size: 1.2em;
+  }
+}
+
+@media (max-width: 480px) {
+  #logoutBtn {
+    top: 5px;
+    left: 5px;
+    padding: 8px 15px;
+    font-size: 1em;
+
+  }
+
+  #logoutBtn i {
+    font-size: 1.1em;
+  }
+}
+
+
+
+
+
+/* Smaller Modal Width for Mobile Devices */
+@media (max-width: 768px) {
+  .modal-content {
+    width: 95%; /* 95% of the screen width */
+    max-width: 95%;
+    padding: 20px;
+  }
+
+  .modal-content h2 {
+    font-size: 1.4em;
+    margin-bottom: 20px;
+  }
+
+  .stats p {
+    font-size: 1em;
+    padding: 10px 15px;
+  }
+
+  .stats p span {
+    font-size: 1em;
+  }
+
+  #closeModal {
+    font-size: 1em;
+    padding: 12px 20px;
+  }
+}
+
+/* Further Adjustments for Very Small Screens */
+@media (max-width: 480px) {
+  .modal-content {
+    padding: 15px;
+  }
+
+  .modal-content h2 {
+    font-size: 1.3em;
+  }
+
+  .stats p {
+    font-size: 0.9em;
+    padding: 8px 12px;
+  }
+
+  .stats p span {
+    font-size: 0.9em;
+  }
+
+  #closeModal {
+    font-size: 0.9em;
+    padding: 10px 18px;
+  }
+}
+
+
+/* Show Modal Class */
+.modal.show {
+  display: flex;
+  animation: modalBackgroundFade 0.3s ease-in-out;
+}
+
+/* Modal Animations */
+@keyframes modalGameIn {
+  0% {
+    opacity: 0;
+    transform: rotateX(-10deg) translateY(50px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: rotateX(0) translateY(0) scale(1);
+  }
+}
+
+@keyframes modalBackgroundFade {
+  from {
+    background-color: rgba(0, 0, 0, 0);
+  }
+  to {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+}
+
+/* Custom Scrollbar for Modal */
+.modal-content::-webkit-scrollbar {
+  width: 10px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+  background: #4a90e2;
+  border-radius: 10px;
+  border: 2px solid rgba(0, 0, 0, 0.3);
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover {
+  background: #357abd;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .modal-content {
+    width: 95%;
+    padding: 25px;
+  }
+
+  .modal-content h2 {
+    font-size: 1.7em;
+  }
+
+  .stats p {
+    font-size: 1em;
+    padding: 10px 15px;
+  }
+}
+
+/* Scrollbar Styling for Modal Content */
+.modal-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Animations */
+@keyframes bounce {
+  0%, 100% {
+      transform: translateY(0);
+  }
+  50% {
+      transform: translateY(-20px);
+  }
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-10px); }
+  75% { transform: translateX(10px); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes fadeInLogo {
+  0% {
+      opacity: 0;
+      transform: scale(0.8);
+  }
+  100% {
+      opacity: 1;
+      transform: scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Media Queries */
+@media screen and (min-width: 481px) and (max-width: 1580px) {
+  .container {
+      padding: 25px;
+      border-radius: 15px;
+      width: 85%;
+  }
+
+  img {
+      width: 150px;
+      height: 150px;
+  }
+
+  button {
+      font-size: 1.3em;
+      padding: 15px 60px;
+  }
+
+  .stats p {
+      font-size: 1em;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .container {
+      padding: 15px;
+      border-radius: 10px;
+      width: 90%;
+
+  }
+
+  img {
+      width: 120px;
+      height: 120px;
+  }
+
+  button {
+    font-size: 1.3em;
+    padding: 15px 60px;
+}
+}
+
+@media screen and (min-width: 481px) and (max-width: 1580px) {
+
+  /* Rules Modal Adjustments */
+  .modal#rulesModal .modal-content {
+    padding: 10px;             /* Reduced padding for compact size */
+    width: 85vw;               /* Adjusted width for smaller screens */
+    max-width: 600px;          /* Caps the width */
+    max-height: 80vh;          /* Adjust height */
+    overflow-y: auto;          /* Enables scrolling for content */
+    box-sizing: border-box;    /* Prevents padding from affecting size */
+  }
+
+  .modal#rulesModal h2 {
+    font-size: 1.4em;          /* Slightly reduced font size */
+    margin-bottom: 10px;       /* Reduced margin for compactness */
+  }
+
+  .modal#rulesModal li {
+    font-size: 1em;            /* Reduced font size */
+    padding: 8px 12px;         /* Adjusted padding */
+  }
+
+  #closeRulesModal {
+    margin-top: 10px;          /* Ensures the button is not cut off */
+    padding: 8px 20px;         /* Adjusted padding for smaller button */
+    font-size: 1em;            /* Standardized font size */
+  }
+  .stats {
+    margin: 15px 0;           /* Reduced margin for compactness */
+    padding: 10px;            /* Adjusted padding */
+  }
+
+  .stats p {
+    font-size: 0.95em;        /* Further reduced font size */
+    padding: 8px 15px;        /* Adjusted padding */
+  }
+
+  .stats p span {
+    font-size: 0.9em;         /* Slightly smaller span font size */
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .stats {
+    margin: 10px 0;           /* Reduced margin for even smaller screens */
+    padding: 8px;             /* Further reduced padding */
+  }
+
+  .stats p {
+    font-size: 0.9em;         /* Further reduced font size */
+    padding: 6px 12px;        /* Reduced padding */
+  }
+
+  .stats p span {
+    font-size: 0.85em;        /* Further reduced span font size */
+    padding: 3px 6px;         /* Reduced padding for values */
+  }
+
+  .modal#rulesModal .modal-content {
+    padding: 15px;             /* Minimized padding for smallest screens */
+    width: 95%;                 /* Adjust width */
+    max-height: 50vh;           /* Further reduced max height */
+  }
+
+  .modal#rulesModal h2 {
+    font-size: 1.4em;           /* Further reduced font size */
+  }
+
+  .modal#rulesModal li {
+    font-size: 0.9em;           /* Reduced font size for list items */
+    padding: 8px 12px;          /* Further reduced padding */
+  }
+
+  .modal#rulesModal .rule-icon {
+    font-size: 1.2em;           /* Further reduced icon size */
+  }  
+}

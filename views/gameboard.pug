@@ -1,0 +1,176 @@
+doctype html
+html
+  head
+    title= title
+    link(rel="stylesheet", href="/game.css")
+
+  body
+    form#exit-form(action="/home", method="POST")
+      input(type="hidden", name="userId", value=userId)
+      button#exit-btn(type="submit") EXIT
+      
+    .board-container
+      h1 Snake & Syntax
+      .board
+        each num in boardNumbers
+          - const hasLadder = ladders[num] ? `has-ladder ladder-${num}` : ''
+          - const hasSnake = snakes[num] ? `has-snake snake-${num}` : ''
+          div.cell(
+            data-position=num 
+            class=`${hasLadder} ${hasSnake}`
+          )
+            if ladders[num]
+              img.ladder(
+                src="/images/ladder.png", 
+                alt=`Ladder from ${num} to ${ladders[num]}`
+              )
+            if snakes[num]
+              img.snake(
+                src="/images/snake.png", 
+                alt=`Snake from ${num} to ${snakes[num]}`
+              )
+            = num
+      .audio-player
+        audio#background-audio(controls loop preload="auto")
+          source(src="/audio/bgm.mp3" type="audio/mpeg")
+          | Your browser does not support the audio element.
+        .audio-buttons
+          button#play-button.btn(type="button" aria-label="Play/Pause")
+            img.play-icon(src="/images/play-audio.png" alt="Play")                
+      .game-info
+        p#current-player Player 1's turn
+        .player-stats
+          .player-box.player1-box
+            h3#p1-score P1: 0
+            p Total Rolls: 
+              span#p1-total-rolls 0
+            p#p1-roll-message Player 1 rolled a 0
+          .player-box.player2-box
+            h3#p2-score P2: 0
+            p Total Rolls: 
+              span#p2-total-rolls 0
+            p#p2-roll-message Player 2 rolled a 0
+        .game-controls
+          button#roll-dice 🎲 Roll Here ! 🎲
+
+    #stats-modal.stats-modal(style="display: none;")
+      .stats-card
+        .stats-header
+          | 🏆 Final Game Statistics 🏆
+        
+        #player1-stats.player-stats-box
+          h3#player1-title Player 1
+          .stats-row
+            span Final Position:
+            span#p1-final-position Square []
+          .stats-row
+            span Correct Answers:
+            span#p1-correct.correct-answers []
+          .stats-row
+            span Incorrect Answers:
+            span#p1-incorrect.incorrect-answers []
+          .stats-row
+            span Total Rolls:
+            span#p1-total []
+
+        #player2-stats.player-stats-box
+          h3#player2-title Player 2
+          .stats-row
+            span Final Position:
+            span#p2-final-position Square []
+          .stats-row
+            span Correct Answers:
+            span#p2-correct.correct-answers []
+          .stats-row
+            span Incorrect Answers:
+            span#p2-incorrect.incorrect-answers []
+          .stats-row
+            span Total Rolls:
+            span#p2-total []
+
+        form#quit-form(action="/home", method="POST")
+          input(type="hidden", name="userId", value=userId)
+          button#quit-button.quit-button(type="submit") QUIT
+
+    #card-prompt-modal.card-prompt-modal(style="display: none;")
+      .card-prompt-content
+        h3 Bonus Question!
+        p Please draw a card
+        .answer-input
+          button.correct-btn(onclick="handleAnswer(true)") Correct Answer
+          button.incorrect-btn(onclick="handleAnswer(false)") Incorrect Answer
+
+    #custom-exit-modal.exit-modal(style="display: none;")
+      .modal-content
+        p Are you sure you want to exit?
+        .modal-buttons
+          button#confirm-exit-btn Confirm
+          button#cancel-exit-btn Cancel
+    script(src="/game.js")
+    script.
+      document.addEventListener('DOMContentLoaded', function() {
+        const exitBtn = document.getElementById('exit-btn');
+        const modal = document.getElementById('custom-exit-modal');
+        const confirmExitBtn = document.getElementById('confirm-exit-btn');
+        const cancelExitBtn = document.getElementById('cancel-exit-btn');
+        const exitForm = document.getElementById('exit-form');
+
+        // Show the custom modal on exit button click
+        exitBtn.addEventListener('click', function(event) {
+          event.preventDefault();
+          modal.style.display = 'flex';
+        });
+
+        // Confirm exit
+        confirmExitBtn.addEventListener('click', function() {
+          exitForm.submit(); // Submit the form
+        });
+
+        // Cancel exit
+        cancelExitBtn.addEventListener('click', function() {
+          modal.style.display = 'none'; // Hide the modal
+        });
+      });
+      // Audio Player functionality
+      document.addEventListener('DOMContentLoaded', function() {
+        const audio = document.getElementById('background-audio');
+        const playButton = document.getElementById('play-button');
+        const playIcon = playButton.querySelector('.play-icon');
+        
+        let isPlaying = false;
+        
+        function togglePlay() {
+          if (isPlaying) {
+            audio.pause();
+            playIcon.src = '/images/play-audio.png';
+            playIcon.alt = 'Play';
+          } else {
+            audio.play()
+              .catch(error => {
+                console.log("Audio playback failed:", error);
+              });
+            playIcon.src = '/images/volume-mute.png';
+            playIcon.alt = 'Pause';
+          }
+          isPlaying = !isPlaying;
+        }
+        
+        playButton.addEventListener('click', togglePlay);
+        
+        // Update button state when audio ends
+        audio.addEventListener('ended', () => {
+          if (!audio.loop) {  // Only update if loop is disabled
+            isPlaying = false;
+            playIcon.src = '/images//play-audio.png';
+            playIcon.alt = 'Play';
+          }
+        });
+        
+        // Handle audio errors
+        audio.addEventListener('error', (e) => {
+          console.error('Audio error:', e);
+          isPlaying = false;
+          playIcon.src = '/images/play-audio.png';
+          playIcon.alt = 'Play';
+        });
+      });
