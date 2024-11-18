@@ -4,9 +4,9 @@ This is a modern twist on the classic Snake and Ladders game, enhanced with hybr
 
 How to Play
 
-Click Roll Dice to roll and move your token.
-Land on special positions to answer a Python question:
-Correct answer: Bonus roll!
-Incorrect answer: Pass your turn.
-Watch out for snakes and aim for ladders.
-First player to reach Square 100 wins the game!
+1. Click Roll Dice to roll and move your token.
+2. Land on special positions to answer a Python question:
+3. Correct answer: Bonus roll!
+4. Incorrect answer: Pass your turn.
+5. Watch out for snakes and aim for ladders.
+6. First player to reach Square 100 wins the game!
